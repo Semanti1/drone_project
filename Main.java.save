@@ -1,0 +1,104 @@
+//package com.pi4j.io.serial;
+//package gnu.io;
+//package se.hirt.pi.adafruit.gps;
+
+//import de.yadrone.base.*;
+import RXTXcomm
+import gnu.io.*;
+import java.io.*;
+import java.util.*;
+//import lib.pi4j;
+//import  se.hirt.pi.adafruit.gps.*;
+//import java.util.Date;
+//import pi4j.1;
+//import com.pi4j.io.serial.Serial;
+//import com.pi4j.io.serial.SerialDataEvent;
+//import com.pi4j.io.serial.SerialDataListener;
+//import com.pi4j.io.serial.SerialFactory;
+//import com.pi4j.io.serial.SerialPortException;
+
+public class Main 
+ 
+{private static InputStream inStream;
+public static void main(String[] args)
+{
+//    IARDrone drone = null;
+  //  try
+   // {
+     //   drone = new ARDrone();
+       // drone.start();
+   // }
+   // catch (Exception exc)
+//	{
+//		exc.printStackTrace();
+//	}
+//	finally
+//	{
+//		if (drone != null)
+		//	drone.stop();
+	//	System.exit(0);
+
+//	}
+//drone.getNavDataManager();
+//drone.getCommandManager().takeOff();
+//drone.getCommandManager().waitFor(5000);
+//drone.getCommandManager().landing();
+//CommandManager cmd = drone.getCommandManager();
+//int speed = 30; // percentage of max speed
+//		drone.getCommandManager().takeOff().doFor(5000);
+//		
+//drone.getCommandManager().goLeft(speed).doFor(2000);
+//cmd.hover().doFor(2000);
+//GPS gps = new GPS();
+//gps.addListener(new GPSListener() {
+//    @Override
+  //  public void onEvent(PositionEvent event) {
+    //    System.out.println(event);
+   // }
+
+
+//    @Override
+   // public void onEvent(VelocityEvent event) {
+     //   System.out.println(event);
+   // }
+//});
+//cmd.goRight(speed).doFor(1000);
+//cmd.hover().doFor(2000);
+
+//cmd.forward(speed).doFor(2000);
+//cmd.hover().doFor(1000);
+
+//cmd.backward(speed).doFor(2000);
+//cmd.hover().doFor(2000);
+//
+//drone.getCommandManager().landing();
+//}
+// drone.getNavDataManager().addAttitudeListener(new AttitudeListener() {
+//			
+  //  public void attitudeUpdated(float pitch, float roll, float yaw)
+   // {
+     //   System.out.println("Pitch: " + pitch + " Roll: " + roll + " Yaw: " + yaw);
+   // }
+   // public void attitudeUpdated(float pitch, float roll) { }
+   // public void windCompensation(float pitch, float roll) { }
+try {
+            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier("/dev/ttyS80");
+            SerialPort serialPort = (SerialPort) portId.open("GPS application", 5000);
+            // Change baud rate if not 115200
+            serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8, 
+                 SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+            serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+            inStream = serialPort.getInputStream();
+            String reading ="";
+            while(true) {
+                if(inStream.available() > 0) {
+                    int b = inStream.read();
+                    System.out.print((char)b);
+                }
+            }
+        } catch (Exception ex) {
+                ex.printStackTrace();
+        }
+}
+}
+
